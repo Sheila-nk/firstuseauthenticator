@@ -4,6 +4,7 @@ from unittest import mock
 
 import dbm
 import pytest
+import pytest_jup_hub
 
 from firstuseauthenticator import FirstUseAuthenticator
 
@@ -192,3 +193,21 @@ async def test_normalized_check(caplog, tmpcwd):
 
     # load again, should skip the
     auth3 = FirstUseAuthenticator()
+
+
+async def test_min_pass_length_10(firstuseauthenticator_configured, caplog):
+    users = []
+    def user_exists(username):
+        return username in users
+    auth = firstuseauthenticator_configured
+    name = "newuser"
+    password = "tooshort"
+    with mock.patch.object(auth, '_user_exists', user_exists):
+        username = await auth.authenticate(mock.Mock(), {"username": name, "password": password})
+        assert username is None
+        for record in caplog.records:
+            if record.levelname == 'ERROR':
+                assert record.msg == (
+                'Password too short! Please choose a password at least %d characters long.'
+                % auth.min_password_length
+                )
