@@ -20,7 +20,7 @@ setup(
     license="BSD-3-Clause",
     python_requires=">=3.6",
     packages=find_packages(),
-    install_requires=['bcrypt', 'jupyterhub>=1.3', 'pytest-jup_hub @ git+https://github.com/Sheila-nk/pytest-jup_hub.git@main'],
+    install_requires=['bcrypt', 'jupyterhub>=1.3', 'pytest-jup_hub @ git+https://github.com/Sheila-nk/pytest-jup_hub.git@main#egg=pytest-jup_hub-0.1.0'],
     package_data={
         '': ['*.html'],
     },

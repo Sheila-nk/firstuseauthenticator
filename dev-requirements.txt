@@ -2,4 +2,4 @@ pytest
 pytest-asyncio
 pytest-cov
 codecov
-pytest-jup_hub
+'pytest-jup_hub==0.1.0'
